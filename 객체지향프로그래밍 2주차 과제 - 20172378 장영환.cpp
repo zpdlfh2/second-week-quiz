@@ -46,19 +46,19 @@ int main() {
 	auto password = Object::create("images/암호.png", scene1, 500, 108, false);
 	password->setScale(0.25f);
 
-	auto keypad = Object::create("images/키패드.png", scene1, 915, 400);
+	auto keypad = Object::create("images/키패드.png", scene1, 920, 400);
 	keypad->setScale(2.5f);
 	keypad->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		showKeypad("tea", door1);
+		showKeypad("b", door1);
 		return true;
 	});
 
-	auto quizshown = false;
-	auto quiz = Object::create("images/퀴즈.png", scene1, 80, 80, false);
-	quiz->setScale(0.7f);
-	quiz->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (quizshown) {
-			quiz->hide();
+	auto quiz1shown = false;
+	auto quiz1 = Object::create("images/퀴즈1.png", scene1, 80, 80, false);
+	quiz1->setScale(0.7f);
+	quiz1->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		if (quiz1shown) {
+			quiz1->hide();
 		}
 		return true;
 		});
@@ -66,9 +66,9 @@ int main() {
 	auto letter = Object::create("images/편지.png", scene1, 40, 120, true);
 	letter->setScale(0.04f);
 	letter->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (quizshown == false) {
-			quiz->show();
-			quizshown = true;
+		if (quiz1shown == false) {
+			quiz1->show();
+			quiz1shown = true;
 		}
 		return true;
 		});
@@ -81,86 +81,168 @@ int main() {
 		return true;
 	});
 
-	auto key = Object::create("images/열쇠.png", scene2, 1100, 230);
-	key->setScale(0.3f);
+	auto getUsb = false;
+	auto usb = Object::create("images/usb.png", scene2, 1100, 130);
+	usb->setScale(0.05f);
 
-	key->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		key->pick();
-
+	usb->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		usb->pick();
+		getUsb = true;
 		return true;
 	});
 
-	auto chairMoved = false;
 	auto chair = Object::create("images/의자.png", scene2, 350, 70);
 	chair->setScale(0.17f);
-	chair->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (chairMoved == false) {
-			if (action == MouseAction::MOUSE_DRAG_UP) {
-				chair->locate(scene2, 350, 120);
-				chairMoved = true;
-			}
-		}
-		return true;
-	});
 
-	auto tableMoved = false;
 	auto table = Object::create("images/테이블.png", scene2, 500, 60);
 	table->setScale(0.25f);
-	table->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (tableMoved == false) {
-			if (action == MouseAction::MOUSE_DRAG_UP) {
-				table->locate(scene2, 500, 90);
-				tableMoved = true;
-			}
-		}
-		return true;
-	});
 
-	auto flowerpotMoved = false;
 	auto flowerpot = Object::create("images/화분.png", scene2, 50, 100);
 	flowerpot->setScale(1.0f);
-	flowerpot->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (flowerpotMoved == false) {
-			if (action == MouseAction::MOUSE_DRAG_RIGHT) {
-				flowerpot->locate(scene2, 80, 100);
-				flowerpotMoved = true;
-			}
-			else if (action == MouseAction::MOUSE_DRAG_LEFT) {
-				flowerpot->locate(scene2, 20, 100);
-				flowerpotMoved = true;
-			}
-		}
-		return true;
-	});
 
-	auto sofa2Moved = false;
 	auto sofa2 = Object::create("images/소파-2.png", scene2, 980, 170);
-	sofa2->setScale(0.15f);
-	sofa2->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (sofa2Moved == false) {
-			if (action == MouseAction::MOUSE_DRAG_DOWN) {
-				sofa2->locate(scene2, 980, 60);
-				sofa2Moved = true;
-			}
+	sofa2->setScale(0.20f);
+
+	auto door3 = Object::create("images/문-오른쪽-닫힘.png", scene2, 850, 280);
+
+	auto quiz2solved = false;
+	auto quiz2 = Object::create("images/퀴즈2.png", scene2, 130, 400, false);
+	quiz2->setScale(0.55f);
+
+	auto quiz2field = Object::create("images/빈화면.png", scene2, 130, 30, false);
+	quiz2field->setScale(0.55f);
+
+	auto usbGate1X = 200, usbGateY = 320;
+	auto usbGate1 = Object::create("images/usb입구.png", scene2, usbGate1X, usbGateY, false);
+	usbGate1->setScale(0.06f);
+
+	auto usbGate2X = 480;
+	auto usbGate2 = Object::create("images/usb입구.png", scene2, usbGate2X, usbGateY, false);
+	usbGate2->setScale(0.065f);
+
+	auto usbGate3X = 760;
+	auto usbGate3 = Object::create("images/usb입구.png", scene2, usbGate3X, usbGateY, false);
+	usbGate3->setScale(0.065f);
+
+	auto quizUsbX = usbGate2X + 20, quizUsbY = usbGateY - 200;
+	auto quizUsb = Object::create("images/usb.png", scene2, quizUsbX, quizUsbY, false);
+	quizUsb->setScale(0.065f);
+
+	auto arrowLeft = Object::create("images/왼쪽화살표.png", scene2, usbGate2X - 80, usbGateY - 280, false);
+	auto arrowUp = Object::create("images/위쪽화살표.png", scene2, usbGate2X + 20, usbGateY - 280, false);
+	auto arrowRight = Object::create("images/오른쪽화살표.png", scene2, usbGate2X + 120, usbGateY - 280, false);
+	arrowUp->setScale(0.05f);
+	arrowRight->setScale(0.05f);
+	arrowLeft->setScale(0.05f);
+
+	arrowUp->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
+		quizUsbY += 50;
+		quizUsb->locate(scene2, quizUsbX, quizUsbY);
+
+		if ((quizUsbX != usbGate3X + 20) && (quizUsbY >= usbGateY)) {
+			quizUsbX = usbGate2X + 20;
+			quizUsbY = usbGateY - 200;
+			quizUsb->locate(scene2, quizUsbX, quizUsbY);
 		}
+		else if ((quizUsbX == usbGate3X + 20) && (quizUsbY >= usbGateY)) {
+			quiz2->hide();
+			quiz2field->hide();
+			arrowRight->hide();
+			arrowLeft->hide();
+			arrowUp->hide();
+			quizUsb->hide();
+			usbGate1->hide();
+			usbGate2->hide();
+			usbGate3->hide();
+			showMessage("해킹 성공!");
+			quiz2solved = true;
+		}
+
 		return true;
-	});
+		});
+
+
+	arrowRight->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
+		quizUsbX += 280;
+		quizUsb->locate(scene2, quizUsbX, quizUsbY);
+
+		if ((quizUsbX != usbGate3X + 20) && (quizUsbY >= usbGateY)) {
+			quizUsbX = usbGate2X + 20;
+			quizUsbY = usbGateY - 200;
+			quizUsb->locate(scene2, quizUsbX, quizUsbY);
+		}
+		else if ((quizUsbX == usbGate3X + 20) && (quizUsbY >= usbGateY)) {
+			quiz2->hide();
+			quiz2field->hide();
+			arrowRight->hide();
+			arrowLeft->hide();
+			arrowUp->hide();
+			quizUsb->hide();
+			usbGate1->hide();
+			usbGate2->hide();
+			usbGate3->hide();
+			showMessage("해킹 성공!");
+			quiz2solved = true;
+		}
+
+
+		return true;
+		});
+
+
+	arrowLeft->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
+		quizUsbX -= 280;
+		quizUsb->locate(scene2, quizUsbX, quizUsbY);
+
+		if ((quizUsbX != usbGate3X + 20) && (quizUsbY >= usbGateY)) {
+			quizUsbX = usbGate2X + 20;
+			quizUsbY = usbGateY - 200;
+			quizUsb->locate(scene2, quizUsbX, quizUsbY);
+		}
+		else if ((quizUsbX == usbGate3X + 20) && (quizUsbY >= usbGateY)) {
+			quiz2->hide();
+			quiz2field->hide();
+			arrowRight->hide();
+			arrowLeft->hide();
+			arrowUp->hide();
+			quizUsb->hide();
+			usbGate1->hide();
+			usbGate2->hide();
+			usbGate3->hide();
+			showMessage("해킹 성공!");
+			quiz2solved = true;
+		}
+
+
+		return true;
+		});
 
 	auto door3_opened = false;
-	auto door3 = Object::create("images/문-오른쪽-닫힘.png", scene2, 850, 280);
 	door3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 
-		if (door3_opened == true) {  // 문이 열린 상태
+		if (door3_opened == true) { 
 			scene3->enter();
 		}
-		else if (key->isHanded()) {                // 문이 닫힌 상태  
+		else if (quiz2solved) {              
 			door3->setImage("images/문-오른쪽-열림.png");
 			door3_opened = true;
 			showMessage("잠금 장치 해제.");
 		}
 
+		else if ((quiz2solved == false) && (getUsb == true)) {
+			quiz2->show();
+			quiz2field->show();
+			arrowRight->show();
+			arrowLeft->show();
+			arrowUp->show();
+			quizUsb->show();
+			usbGate1->show();
+			usbGate2->show();
+			usbGate3->show();
+		}
+
 		else {
-			showMessage("문이 잠겨있다.");
+			showMessage("문이 잠겨있다. 단서를 찾아보자!");
 		}
 		return true;
 	});
@@ -177,22 +259,40 @@ int main() {
 	chair2->setScale(0.17f);
 
 	auto table2 = Object::create("images/테이블.png", scene3, 500, 60);
-	table2->setScale(0.25f);
+	table2->setScale(0.25f);	
 
-	auto table3found = false;
-	auto table3 = Object::create("images/테이블2.png", scene3, 800, 70);
-	table3->setScale(0.12f);
+	auto table3Found = false;
+	auto table3 = Object::create("images/테이블2.png", scene3, 450, 250);
+	table3->setScale(0.1f);
 	table3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		table3->hide();
-		table3found = true;
+		table3Found = true;
+		return true;
+		});
+
+	auto shoesFound = false;
+	auto shoes = Object::create("images/신발.png", scene3, 800, 30);
+	shoes->setScale(0.07f);
+	shoes->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		shoes->hide();
+		shoesFound = true;
 		return true;
 		});
 
 	auto flowerpot2 = Object::create("images/화분.png", scene3, 50, 100);
 	flowerpot2->setScale(1.0f);
 
+	auto flowerpot3Found = false;
+	auto flowerpot3 = Object::create("images/화분2.png", scene3, 200, 100);
+	flowerpot3->setScale(0.1f);
+	flowerpot3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		flowerpot3->hide();
+		flowerpot3Found = true;
+		return true;
+		});
+
 	auto sofa3 = Object::create("images/소파-2.png", scene3, 980, 170);
-	sofa3->setScale(0.15f);
+	sofa3->setScale(0.20f);
 
 	auto door5_opened = false;
 	auto door5 = Object::create("images/문-오른쪽-닫힘.png", scene3, 850, 280);
@@ -201,7 +301,7 @@ int main() {
 		if (door5_opened == true) {  // 문이 열린 상태
 			endGame();
 		}
-		else if (table3found) {                // 문이 닫힌 상태  
+		else if ((table3Found && shoesFound) && flowerpot3Found) {                // 문이 닫힌 상태  
 			door5->setImage("images/문-오른쪽-열림.png");
 			door5_opened = true;
 			showMessage("잠금 장치 해제. 문을 열고 나가세요!");
