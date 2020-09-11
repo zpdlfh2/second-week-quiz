@@ -50,9 +50,6 @@ int main() {
 	auto carpet = Object::create("images/카펫.png", scene1, 430, 70, true);
 	carpet->setScale(0.35f);
 
-	auto sofa1 = Object::create("images/소파-1.png", scene1, 920, 140);
-	sofa1->setScale(0.17f);
-
 	auto bed = Object::create("images/침대.png", scene1, 45, 130);
 	bed->setScale(0.2f);
 
@@ -66,25 +63,42 @@ int main() {
 		return true;
 		});
 
-	auto quiz1shown = false;
+	auto letter = Object::create("images/편지.png", scene1, 40, 120, true);
 	auto quiz1 = Object::create("images/퀴즈1.png", scene1, 80, 80, false);
-	quiz1->setScale(0.7f);
-	quiz1->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (quiz1shown) {
-			quiz1->hide();
-		}
+
+	letter->setScale(0.04f);
+	letter->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {	
+		quiz1->show();
 		return true;
 		});
 
-	auto letter = Object::create("images/편지.png", scene1, 40, 120, true);
-	letter->setScale(0.04f);
-	letter->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (quiz1shown == false) {
-			quiz1->show();
-			quiz1shown = true;
-		}
+	quiz1->setScale(0.7f);
+	quiz1->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		quiz1->hide();
 		return true;
 		});
+
+	auto sofa1 = Object::create("images/소파-1.png", scene1, 920, 140);
+	sofa1->setScale(0.17f);
+
+	auto letter2 = Object::create("images/편지2.png", scene1, 1100, 250, true);
+	auto hint = Object::create("images/hint.png", scene1, 400, 160, false);
+
+	letter2->setScale(0.04f);
+	letter2->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		hint->show();
+		return true;
+		});
+
+	hint->setScale(0.7f);
+	hint->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		hint->hide();
+		return true;
+		});
+
+
+
+
 
 	//두번째 방
 
