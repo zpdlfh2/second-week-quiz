@@ -3,9 +3,22 @@ using namespace bangtal;
 
 int main() {
 
-	ScenePtr scene1 = Scene::create("룸 1", "images/배경-1.png");
-	ScenePtr scene2 = Scene::create("룸 2", "images/배경-2.png");
-	ScenePtr scene3 = Scene::create("룸 3", "images/배경-2.png");
+	ScenePtr startPage = Scene::create("STARTPAGE","images/startpage.png");
+	ScenePtr scene1 = Scene::create("ROOM 1", "images/배경-1.png");
+	ScenePtr scene2 = Scene::create("ROOM 2", "images/배경-2.png");
+	ScenePtr scene3 = Scene::create("ROOM 3", "images/배경-2.png");
+
+	setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, false);
+	setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, false);
+	auto startButton = Object::create("images/start.png", startPage, 565, 70);
+
+	startButton->setScale(0.07f);
+	startButton->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		scene1->enter();
+		setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, true);
+		setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, true);
+		return true;
+		});
 
 
 	//첫번째 방
@@ -345,6 +358,6 @@ int main() {
 
 	// 게임 시작
 
-	startGame(scene1);
+	startGame(startPage);
 	return 0;
 }
