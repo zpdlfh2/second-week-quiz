@@ -3,7 +3,7 @@ using namespace bangtal;
 
 int main() {
 
-	ScenePtr scene1 = Scene::create("룸 1", "images/배경-1.png");  
+	ScenePtr scene1 = Scene::create("룸 1", "images/배경-1.png");
 	ScenePtr scene2 = Scene::create("룸 2", "images/배경-2.png");
 	ScenePtr scene3 = Scene::create("룸 3", "images/배경-2.png");
 
@@ -13,10 +13,10 @@ int main() {
 	auto door1_opened = false, locked1 = true;
 	auto door1 = Object::create("images/문-오른쪽-닫힘.png", scene1, 800, 270);
 	door1->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		if (locked1) {		 	
+		if (locked1) {
 			showMessage("문이 잠겨있다.");
 		}
-		else if (door1_opened) {         
+		else if (door1_opened) {
 			scene2->enter();
 
 		}
@@ -26,13 +26,13 @@ int main() {
 		}
 
 		return true;
-	});
+		});
 
 	door1->setOnKeypadCallback([&](ObjectPtr object)-> bool {
 		locked1 = false;
 		showMessage("띠리링~~");
 		return true;
-	});
+		});
 
 	auto carpet = Object::create("images/카펫.png", scene1, 430, 70, true);
 	carpet->setScale(0.35f);
@@ -49,9 +49,9 @@ int main() {
 	auto keypad = Object::create("images/키패드.png", scene1, 920, 400);
 	keypad->setScale(2.5f);
 	keypad->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		showKeypad("b", door1);
+		showKeypad("tea", door1);
 		return true;
-	});
+		});
 
 	auto quiz1shown = false;
 	auto quiz1 = Object::create("images/퀴즈1.png", scene1, 80, 80, false);
@@ -79,7 +79,7 @@ int main() {
 	door2->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		scene1->enter();
 		return true;
-	});
+		});
 
 	auto getUsb = false;
 	auto usb = Object::create("images/usb.png", scene2, 1100, 140);
@@ -89,7 +89,7 @@ int main() {
 		usb->pick();
 		getUsb = true;
 		return true;
-	});
+		});
 
 	auto chair = Object::create("images/의자.png", scene2, 350, 70);
 	chair->setScale(0.17f);
@@ -106,21 +106,21 @@ int main() {
 	auto door3 = Object::create("images/문-오른쪽-닫힘.png", scene2, 850, 280);
 
 	auto quiz2solved = false;
-	auto quiz2 = Object::create("images/퀴즈2.png", scene2, 130, 420, false);
-	quiz2->setScale(0.53f);
+	auto quiz2 = Object::create("images/퀴즈2.png", scene2, 190, 480, false);
+	quiz2->setScale(0.57f);
 
-	auto quiz2field = Object::create("images/빈화면.png", scene2, 130, 30, false);
-	quiz2field->setScale(0.53f);
+	auto quiz2field = Object::create("images/빈화면.png", scene2, 190, 30, false);
+	quiz2field->setScale(0.57f);
 
-	auto usbGate1X = 200, usbGateY = 320;
+	auto usbGate1X = 300, usbGateY = 320;
 	auto usbGate1 = Object::create("images/usb입구.png", scene2, usbGate1X, usbGateY, false);
 	usbGate1->setScale(0.08f);
 
-	auto usbGate2X = 480;
+	auto usbGate2X = 580;
 	auto usbGate2 = Object::create("images/usb입구.png", scene2, usbGate2X, usbGateY, false);
 	usbGate2->setScale(0.08f);
 
-	auto usbGate3X = 760;
+	auto usbGate3X = 860;
 	auto usbGate3 = Object::create("images/usb입구.png", scene2, usbGate3X, usbGateY, false);
 	usbGate3->setScale(0.08f);
 
@@ -220,10 +220,11 @@ int main() {
 	auto door3_opened = false;
 	door3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 
-		if (door3_opened == true) { 
+		if (door3_opened == true) {
 			scene3->enter();
+			setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, false);
 		}
-		else if (quiz2solved) {              
+		else if (quiz2solved) {
 			door3->setImage("images/문-오른쪽-열림.png");
 			door3_opened = true;
 			showMessage("잠금 장치 해제.");
@@ -245,7 +246,7 @@ int main() {
 			showMessage("문이 잠겨있다. 단서를 찾아보자!");
 		}
 		return true;
-	});
+		});
 
 	//세번째 방
 
@@ -259,61 +260,67 @@ int main() {
 	chair2->setScale(0.17f);
 
 	auto table2 = Object::create("images/테이블.png", scene3, 500, 60);
-	table2->setScale(0.25f);	
+	table2->setScale(0.25f);
 
-
-
-	auto table3Found = false;
-	auto table3 = Object::create("images/테이블2.png", scene3, 450, 250);
-	auto check1 = Object::create("images/check.png", scene3, 500, 300, false);
+	auto differenceFound = 0;
+	auto mask = Object::create("images/마스크.png", scene3, 570, 160);
+	auto check1 = Object::create("images/check.png", scene3, 570, 160, false);
 	check1->setScale(0.05f);
-	table3->setScale(0.1f);
-	table3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
-		table3->hide();
-		table3Found = true;
+	mask->setScale(0.05f);
+	mask->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		mask->hide();
+		differenceFound++;
 		check1->show();
 		return true;
 		});
 
-	auto shoesFound = false;
-	auto shoes = Object::create("images/신발.png", scene3, 800, 30);
-	auto check2 = Object::create("images/check.png", scene3, 810, 40, false);
+	auto table3 = Object::create("images/테이블2.png", scene3, 450, 250);
+	auto check2 = Object::create("images/check.png", scene3, 500, 300, false);
 	check2->setScale(0.05f);
+	table3->setScale(0.1f);
+	table3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		table3->hide();
+		differenceFound++;
+		check2->show();
+		return true;
+		});
+
+	auto shoes = Object::create("images/신발.png", scene3, 800, 30);
+	auto check3 = Object::create("images/check.png", scene3, 810, 40, false);
+	check3->setScale(0.05f);
 	shoes->setScale(0.05f);
 	shoes->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		shoes->hide();
-		shoesFound = true;
-		check2->show();
+		differenceFound++;
+		check3->show();
 		return true;
 		});
 
 	auto flowerpot2 = Object::create("images/화분.png", scene3, 50, 100);
 	flowerpot2->setScale(1.0f);
 
-	auto flowerpot3Found = false;
 	auto flowerpot3 = Object::create("images/화분2.png", scene3, 200, 100);
-	auto check3 = Object::create("images/check.png", scene3, 210, 110, false);
-	check3->setScale(0.05f);
+	auto check4 = Object::create("images/check.png", scene3, 210, 110, false);
+	check4->setScale(0.05f);
 	flowerpot3->setScale(0.1f);
 	flowerpot3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		flowerpot3->hide();
-		flowerpot3Found = true;
-		check3->show();
+		differenceFound++;
+		check4->show();
 		return true;
 		});
 
 	auto sofa3 = Object::create("images/소파-2.png", scene3, 950, 155);
 	sofa3->setScale(0.17f);
 
-	auto cameraFound = false;
 	auto camera = Object::create("images/카메라.png", scene3, 1080, 265);
-	auto check4 = Object::create("images/check.png", scene3, 1080, 265, false);
-	check4->setScale(0.05f);
+	auto check5 = Object::create("images/check.png", scene3, 1080, 265, false);
+	check5->setScale(0.05f);
 	camera->setScale(0.032f);
 	camera->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		camera->hide();
-		cameraFound = true;
-		check4->show();
+		differenceFound++;
+		check5->show();
 		return true;
 		});
 
@@ -321,13 +328,13 @@ int main() {
 	auto door5 = Object::create("images/문-오른쪽-닫힘.png", scene3, 850, 280);
 	door5->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 
-		if (door5_opened == true) {  // 문이 열린 상태
+		if (door5_opened == true) {
 			endGame();
 		}
-		else if ((table3Found && shoesFound) && (flowerpot3Found && cameraFound)) {                // 문이 닫힌 상태  
+		else if (differenceFound == 5) {
 			door5->setImage("images/문-오른쪽-열림.png");
 			door5_opened = true;
-			showMessage("잠금 장치 해제. 문을 열고 나가세요!");
+			showMessage("모든 미션 성공! 문을 열고 나가세요!");
 		}
 
 		else {
