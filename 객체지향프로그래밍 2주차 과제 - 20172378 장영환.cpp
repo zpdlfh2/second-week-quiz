@@ -10,7 +10,7 @@ int main() {
 
 	setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, false);
 	setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, false);
-	auto startButton = Object::create("images/start.png", startPage, 565, 70);
+	auto startButton = Object::create("images/start.png", startPage, 565, 50);
 
 	startButton->setScale(0.07f);
 	startButton->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
@@ -290,10 +290,10 @@ int main() {
 	table2->setScale(0.25f);
 
 	auto differenceFound = 0;
-	auto mask = Object::create("images/마스크.png", scene3, 570, 160);
-	auto check1 = Object::create("images/check.png", scene3, 570, 160, false);
+	auto mask = Object::create("images/마스크.png", scene3, 570, 165);
+	auto check1 = Object::create("images/check.png", scene3, 570, 165, false);
 	check1->setScale(0.05f);
-	mask->setScale(0.05f);
+	mask->setScale(0.04f);
 	mask->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		mask->hide();
 		differenceFound++;
