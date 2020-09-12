@@ -171,6 +171,11 @@ int main() {
 			quizUsbY = usbGateY - 200;
 			quizUsb->locate(scene2, quizUsbX, quizUsbY);
 		}
+		else if ((quizUsbX > 900) || (quizUsbX < 300)) {
+			quizUsbX = usbGate2X + 25;
+			quizUsbY = usbGateY - 200;
+			quizUsb->locate(scene2, quizUsbX, quizUsbY);
+		}
 		else if ((quizUsbX == usbGate3X + 25) && (quizUsbY >= usbGateY)) {
 			quiz2->hide();
 			quiz2field->hide();
@@ -194,6 +199,11 @@ int main() {
 		quizUsb->locate(scene2, quizUsbX, quizUsbY);
 
 		if ((quizUsbX != usbGate3X + 25) && (quizUsbY >= usbGateY)) {
+			quizUsbX = usbGate2X + 25;
+			quizUsbY = usbGateY - 200;
+			quizUsb->locate(scene2, quizUsbX, quizUsbY);
+		}
+		else if ((quizUsbX > 900)|| (quizUsbX < 300)) {
 			quizUsbX = usbGate2X + 25;
 			quizUsbY = usbGateY - 200;
 			quizUsb->locate(scene2, quizUsbX, quizUsbY);
@@ -222,6 +232,11 @@ int main() {
 		quizUsb->locate(scene2, quizUsbX, quizUsbY);
 
 		if ((quizUsbX != usbGate3X + 25) && (quizUsbY >= usbGateY)) {
+			quizUsbX = usbGate2X + 25;
+			quizUsbY = usbGateY - 200;
+			quizUsb->locate(scene2, quizUsbX, quizUsbY);
+		}
+		else if ((quizUsbX > 900) || (quizUsbX < 300)) {
 			quizUsbX = usbGate2X + 25;
 			quizUsbY = usbGateY - 200;
 			quizUsb->locate(scene2, quizUsbX, quizUsbY);
