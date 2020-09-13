@@ -225,7 +225,6 @@ int main() {
 			quiz2solved = true;
 		}
 
-
 		return true;
 		});
 
@@ -258,7 +257,6 @@ int main() {
 			quiz2solved = true;
 		}
 
-
 		return true;
 		});
 
@@ -269,7 +267,6 @@ int main() {
 			door3_opened = true;
 			showMessage("잠금 장치 해제.");
 		}
-
 		else if ((quiz2solved == false) && (getUsb == true)) {
 			quiz2->show();
 			quiz2field->show();
@@ -281,10 +278,10 @@ int main() {
 			usbGate2->show();
 			usbGate3->show();
 		}
-
 		else {
 			showMessage("복잡한 잠금 장치가 있다. 문을 해킹할 수단을 찾아보자!");
 		}
+
 		return true;
 		});
 
@@ -298,7 +295,6 @@ int main() {
 			door3_opened = true;
 			showMessage("잠금 장치 해제.");
 		}
-
 		else if ((quiz2solved == false) && (getUsb == true)) {
 			quiz2->show();
 			quiz2field->show();
@@ -310,10 +306,10 @@ int main() {
 			usbGate2->show();
 			usbGate3->show();
 		}
-
 		else {
 			showMessage("복잡한 잠금 장치가 있다. 문을 해킹할 수단을 찾아보자!");
 		}
+
 		return true;
 		});
 
