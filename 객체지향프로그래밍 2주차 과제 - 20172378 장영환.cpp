@@ -19,7 +19,7 @@ int main() {
 		setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, true);
 		return true;
 		});
-
+		
 
 	//첫번째 방
 
@@ -31,7 +31,6 @@ int main() {
 		}
 		else if (door1_opened) {
 			scene2->enter();
-
 		}
 		else {            
 			door1->setImage("images/문-오른쪽-열림.png");
@@ -389,6 +388,17 @@ int main() {
 		return true;
 		});
 
+	auto pencil = Object::create("images/pencil.png", scene3, 950, 230);
+	auto check6 = Object::create("images/check.png", scene3, 935, 210, false);
+	check6->setScale(0.05f);
+	pencil->setScale(0.01f);
+	pencil->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		pencil->hide();
+		differenceFound++;
+		check6->show();
+		return true;
+		});
+
 	auto door5_opened = false;
 	auto door5 = Object::create("images/문-오른쪽-닫힘.png", scene3, 850, 280);
 	door5->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
@@ -396,7 +406,7 @@ int main() {
 		if (door5_opened == true) {
 			endGame();
 		}
-		else if (differenceFound == 5) {
+		else if (differenceFound == 6) {
 			door5->setImage("images/문-오른쪽-열림.png");
 			door5_opened = true;
 			showMessage("모든 미션 성공! 문을 열고 나가세요!");
