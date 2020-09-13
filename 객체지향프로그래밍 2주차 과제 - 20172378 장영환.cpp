@@ -33,7 +33,7 @@ int main() {
 			scene2->enter();
 
 		}
-		else {                // 문이 닫힌 상태  
+		else {            
 			door1->setImage("images/문-오른쪽-열림.png");
 			door1_opened = true;
 		}
@@ -131,6 +131,9 @@ int main() {
 	sofa2->setScale(0.17f);
 
 	auto door3 = Object::create("images/문-오른쪽-닫힘.png", scene2, 850, 280);
+	auto complexLock = Object::create("images/complexlock.png", scene2, 820, 460);
+	complexLock->setScale(0.02f);
+
 
 	auto quiz2solved = false;
 	auto quiz2 = Object::create("images/퀴즈2.png", scene2, 190, 480, false);
@@ -260,8 +263,32 @@ int main() {
 		});
 
 	auto door3_opened = false;
-	door3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+	complexLock->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
+		if (quiz2solved) {
+			door3->setImage("images/문-오른쪽-열림.png");
+			door3_opened = true;
+			showMessage("잠금 장치 해제.");
+		}
 
+		else if ((quiz2solved == false) && (getUsb == true)) {
+			quiz2->show();
+			quiz2field->show();
+			arrowRight->show();
+			arrowLeft->show();
+			arrowUp->show();
+			quizUsb->show();
+			usbGate1->show();
+			usbGate2->show();
+			usbGate3->show();
+		}
+
+		else {
+			showMessage("복잡한 잠금 장치가 있다. 문을 해킹할 수단을 찾아보자!");
+		}
+		return true;
+		});
+
+	door3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		if (door3_opened == true) {
 			scene3->enter();
 			setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, false);
@@ -285,7 +312,7 @@ int main() {
 		}
 
 		else {
-			showMessage("문이 잠겨있다. 단서를 찾아보자!");
+			showMessage("복잡한 잠금 장치가 있다. 문을 해킹할 수단을 찾아보자!");
 		}
 		return true;
 		});
@@ -330,7 +357,7 @@ int main() {
 	auto shoes = Object::create("images/신발.png", scene3, 800, 30);
 	auto check3 = Object::create("images/check.png", scene3, 810, 40, false);
 	check3->setScale(0.05f);
-	shoes->setScale(0.05f);
+	shoes->setScale(0.07f);
 	shoes->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)->bool {
 		shoes->hide();
 		differenceFound++;
@@ -380,7 +407,7 @@ int main() {
 		}
 
 		else {
-			showMessage("두번째 방과 다른 부분들을 찾아 클릭하세요!");
+			showMessage("두번째 방과 다른 부분을 찾아 체크해보자!");
 		}
 		return true;
 		});
