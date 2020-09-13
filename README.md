@@ -27,3 +27,5 @@
 
 ![room2](https://user-images.githubusercontent.com/61266770/92985601-1d0d6680-f4ef-11ea-9481-081cf9772165.png)
 ### -다양한 미션을 성공하면 문을 열 수 있습니다.<br/><br/><br/><br/>
+
+## 흥미로운 방탈출 게임에 도전해보세요!<br/><br/><br/><br/>
